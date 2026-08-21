@@ -22,7 +22,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install Dependencies
-        # Hier installieren wir die benötigten Parser-Bibliotheken
+        # Here we install the required parser libraries
         run: pip install feedparser beautifulsoup4
 
       - name: Run Fetch Script
@@ -35,7 +35,7 @@ jobs:
           git add reddit/reddit_feedback.md
           
           if git diff --staged --quiet; then
-            echo "Keine neuen Kommentare. Nichts zu committen."
+            echo "No new comments. Nothing to commit."
           else
             git commit -m "docs: Update Reddit feedback via RSS"
             git push

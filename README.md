@@ -1,94 +1,94 @@
-# Carten Telemetrie
+# Carten Telemetry
 
-## Inhaltsverzeichnis
-* [1. Projektbeschreibung und Spezifikationen](#1-projektbeschreibung-und-spezifikationen)
-* [2. Stückliste (Bill of Materials)](#2-stueckliste-bill-of-materials)
-* [3. Schaltplan und Systemarchitektur](#3-schaltplan-und-systemarchitektur)
-* [4. Implementierung und Aufbau](#4-implementierung-und-aufbau)
-  * [4.1 Software und Firmware-Kompilierung](#41-software-und-firmware-kompilierung)
-  * [4.2 Elektrische Verkabelung](#42-elektrische-verkabelung)
-  * [4.3 Mechanische Integration](#43-mechanische-integration)
-* [5. Betriebsmodus und Datenauswertung](#5-betriebsmodus-und-datenauswertung)
-* [6. CI/CD: Reddit-Feedback-Synchronisation](#6-cicd-reddit-feedback-synchronisation)
+## Table of Contents
+* [1. Project Description and Specifications](#1-project-description-and-specifications)
+* [2. Bill of Materials (BOM)](#2-bill-of-materials-bom)
+* [3. Schematic and System Architecture](#3-schematic-and-system-architecture)
+* [4. Implementation and Setup](#4-implementation-and-setup)
+  * [4.1 Software and Firmware Compilation](#41-software-and-firmware-compilation)
+  * [4.2 Electrical Wiring](#42-electrical-wiring)
+  * [4.3 Mechanical Integration](#43-mechanical-integration)
+* [5. Operation Mode and Data Analysis](#5-operation-mode-and-data-analysis)
+* [6. CI/CD: Reddit Feedback Synchronization](#6-cicd-reddit-feedback-synchronization)
 
-## 1. Projektbeschreibung und Spezifikationen
+## 1. Project Description and Specifications
 
-<img src="testrun/test_im_fahrzeug/PXL_20260518_144521252.jpg" height="300" alt="Test im Fahrzeug - Setup 1" /> <img src="testrun/test_im_fahrzeug/PXL_20260518_144728325.jpg" height="300" alt="Carten Telemetrie Setup im Fahrzeug" />
+<img src="testrun/vehicle_test/PXL_20260518_144521252.jpg" height="300" alt="Vehicle Test - Setup 1" /> <img src="testrun/vehicle_test/PXL_20260518_144728325.jpg" height="300" alt="Carten Telemetry Setup in Vehicle" />
 
-Entwicklung eines lokalen Telemetriesystems für das ferngesteuerte Modellfahrzeug Carten T410R [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/kleinnconrad/RC100). Das System erfasst dynamische und thermische Parameter während des Fahrbetriebs.
+Development of a local telemetry system for the RC car Carten T410R [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/kleinnconrad/RC100). The system records dynamic and thermal parameters during driving operation.
 
-**Erfasste Metriken und Spezifikationen:**
-* **Temperatur:** Erfassung von Motor- und ESC-Temperaturen (Messbereich -55°C bis +125°C, Auflösung 12-Bit) über den 1-Wire-Bus.
-* **Drehzahl:** RPM-Erfassung der Kardanwelle mittels Hall-Effekt-Sensor und Neodym-Magnet (Hardware-gestützter Pulse Counter).
-* **Geodaten:** Aufzeichnung von Längen- und Breitengrad sowie der absoluten Geschwindigkeit (GNSS/GPS-Satellitendaten via NMEA 0183-Protokoll, Updaterate 1 Hz bis 10 Hz konfigurierbar).
+**Recorded Metrics and Specifications:**
+* **Temperature:** Recording of motor and ESC temperatures (measuring range -55°C to +125°C, 12-bit resolution) via the 1-Wire bus.
+* **RPM:** RPM recording of the driveshaft using a Hall effect sensor and neodymium magnet (hardware-assisted pulse counter).
+* **Geodata:** Recording of latitude and longitude as well as absolute speed (GNSS/GPS satellite data via NMEA 0183 protocol, update rate configurable between 1 Hz and 10 Hz).
 
-**Architektur-Variante:**
-* Ausschließliches Offline-Logging auf einer lokalen MicroSD-Karte. Zur Vermeidung von Latenzen und Verbindungsabbrüchen findet keine Datenübertragung über drahtlose Netzwerke statt.
+**Architecture Variant:**
+* Exclusive offline logging on a local MicroSD card. To prevent latencies and connection drops, no data transmission occurs over wireless networks.
 
-## 2. Stückliste (Bill of Materials)
-Für die Nachkonstruktion sind zwingend die folgenden Bauteile oder äquivalente Spezifikationen zu verwenden:
+## 2. Bill of Materials (BOM)
+For replication, the following components or equivalent specifications must be used:
 
-| Komponente | Spezifikation / Typ | Funktion im System |
+| Component | Specification / Type | Function in System |
 | :--- | :--- | :--- |
-| Microcontroller | ESP32 Dev Board (30-Pin Variante, z.B. NodeMCU) | Zentrale Ingestion und Verarbeitung der Sensorik |
-| Erweiterungsboard | ESP32 Terminal Breakout Board (30-Pin) | Sichere Kontaktierung der Jumper-Kabel ohne Löten |
-| GPS-Modul | BN-220 (u-blox M8N) | Bereitstellung der Geodaten (Baudrate 9600) |
-| Speichermodul | MicroSD-Karten-Modul (SPI) | Persistenter Datenspeicher (zwingend 3.3V Logik) |
-| Temperatursensor | DS18B20 (TO-92 oder wasserdicht) | 2x Sensoren zur Temperaturüberwachung (Motor, ESC) |
-| Drehzahlsensor | Hall-Sensor Modul (A3144) | Detektion von Magnetfeldänderungen |
-| Magnet | Neodym-Magnet (3x2mm) | Rotierender Impulsgeber an der Kardanwelle |
-| Stromversorgung | 3-Pin Servokabel (JR-Stecker) | 5V Spannungsabgriff über das BEC des RC-Empfängers |
+| Microcontroller | ESP32 Dev Board (30-Pin Variant, e.g., NodeMCU) | Central ingestion and processing of sensor data |
+| Expansion Board | ESP32 Terminal Breakout Board (30-Pin) | Secure connection of jumper wires without soldering |
+| GPS Module | BN-220 (u-blox M8N) | Provision of geodata (Baud rate 9600) |
+| Storage Module | MicroSD Card Module (SPI) | Persistent data storage (strictly 3.3V logic) |
+| Temperature Sensor | DS18B20 (TO-92 or waterproof) | 2x sensors for temperature monitoring (Motor, ESC) |
+| RPM Sensor | Hall Sensor Module (A3144) | Detection of magnetic field changes |
+| Magnet | Neodymium Magnet (3x2mm) | Rotating pulse generator on the driveshaft |
+| Power Supply | 3-Pin Servo Cable (JR Connector) | 5V voltage tap via the BEC of the RC receiver |
 
-## 3. Schaltplan und Systemarchitektur
-Alle Hardwarekomponenten nutzen eine gemeinsame Masse (GND) zur Vermeidung von Floating-Potenzialen. Die serielle UART-Verbindung zwischen ESP32 und GPS-Modul erfordert eine physikalische Kreuzung der Leitungen (TX an RX, RX an TX). Der Spitzenstrombedarf des Gesamtsystems liegt bei etwa 200 mA bis 250 mA.
+## 3. Schematic and System Architecture
+All hardware components share a common ground (GND) to avoid floating potentials. The serial UART connection between the ESP32 and the GPS module requires physical crossing of lines (TX to RX, RX to TX). The peak current demand of the overall system is approximately 200 mA to 250 mA.
 
-| Komponente | Interface | ESP32 Pin | Sensor Pin | Bemerkung |
+| Component | Interface | ESP32 Pin | Sensor Pin | Remark |
 | :--- | :--- | :--- | :--- | :--- |
-| RC-Empfänger| Power | `VIN` | 5V (Rot) | Parasitäre Versorgung über ESC/Empfänger (BEC) |
-| | | `GND` | GND (Schwarz)| Referenzpotenzial |
-| GPS Modul| UART 2 | `GPIO 16` (RX2) | TX | VCC-Spannungsversorgung zwingend über 3.3V des ESP32 |
+| RC Receiver | Power | `VIN` | 5V (Red) | Parasitic supply via ESC/Receiver (BEC) |
+| | | `GND` | GND (Black) | Reference potential |
+| GPS Module | UART 2 | `GPIO 16` (RX2) | TX | VCC power supply strictly via 3.3V of the ESP32 |
 | | | `GPIO 17` (TX2) | RX | |
-| MicroSD-Modul | SPI | `GPIO 23`, `19`, `18`, `5` | MOSI, MISO, SCK, CS | VCC-Spannungsversorgung zwingend über 3.3V des ESP32 |
-| DS18B20 | 1-Wire | `GPIO 4` | DQ (Daten) | Parallelschaltung beider Sensoren |
-| A3144 Hall-Sensor| Dig. Out | `GPIO 2` | DO (Signal) | Anbindung an ESP32 PCNT (Pulse Counter) |
+| MicroSD Module | SPI | `GPIO 23`, `19`, `18`, `5` | MOSI, MISO, SCK, CS | VCC power supply strictly via 3.3V of the ESP32 |
+| DS18B20 | 1-Wire | `GPIO 4` | DQ (Data) | Parallel connection of both sensors |
+| A3144 Hall Sensor | Dig. Out | `GPIO 2` | DO (Signal) | Connection to ESP32 PCNT (Pulse Counter) |
 
-*(Der detaillierte visuelle Schaltplan befindet sich im Verzeichnis `/schaltplan`.)*
+*(The detailed visual schematic can be found in the `/schematic` directory.)*
 
-## 4. Implementierung und Aufbau
+## 4. Implementation and Setup
 
-### 4.1 Software und Firmware-Kompilierung
-* **Umgebung:** Die Kompilierung erfordert PlatformIO oder die Arduino IDE.
-* **Bibliotheken:** Zur Übersetzung des Quellcodes müssen `TinyGPSPlus`, `OneWire` und `DallasTemperature` im Library-Manager installiert sein.
-* **Flash-Vorgang:** Die Firmware ist via USB-Schnittstelle auf den ESP32 zu überspielen. Bei Boot-Problemen ist der serielle Output (`115200` Baud) auf Initialisierungsfehler (z.B. SD-Karte nicht gefunden) zu prüfen.
+### 4.1 Software and Firmware Compilation
+* **Environment:** Compilation requires PlatformIO or the Arduino IDE.
+* **Libraries:** To compile the source code, `TinyGPSPlus`, `OneWire`, and `DallasTemperature` must be installed in the Library Manager.
+* **Flashing Process:** The firmware must be uploaded to the ESP32 via the USB interface. In case of boot issues, the serial output (`115200` baud) must be checked for initialization errors (e.g., SD card not found).
 
-### 4.2 Elektrische Verkabelung
-* Der ESP32 ist auf das Terminal-Breakout-Board aufzustecken. Alle Jumper-Kabel werden zwingend in den Schraubklemmen des Breakout-Boards fixiert, um vibrationsresistente Verbindungen zu gewährleisten.
-* Das Servokabel ist polungsrichtig über Jumper-Kabel mit den `VIN`- (5V) und `GND`-Klemmen zu verschrauben und an einen freien Port des RC-Empfängers anzuschließen.
-* Die Verbindung von GPS, SD-Modul, Hall-Sensor und Temperatursensoren ist gemäß der dokumentierten Pin-Belegung mittels Jumper-Kabeln und den Klemmen des Breakout-Boards vorzunehmen.
-* Bei Mehrfachbelegungen (z. B. der Zusammenführung mehrerer GND- oder 3.3V-Leitungen der Sensoren) sind WAGO-Klemmen einzusetzen. Zur Vermeidung von Wackelkontakten bei Vibrationen ist der korrekte Sitz in den Klemmen zu prüfen.
+### 4.2 Electrical Wiring
+* The ESP32 must be plugged onto the terminal breakout board. All jumper wires must be securely fastened in the screw terminals of the breakout board to ensure vibration-resistant connections.
+* The servo cable must be screwed with correct polarity via jumper wires to the `VIN` (5V) and `GND` terminals and connected to a free port of the RC receiver.
+* The connection of the GPS, SD module, Hall sensor, and temperature sensors must be carried out according to the documented pin assignment using jumper wires and the breakout board terminals.
+* For multiple connections (e.g., merging several GND or 3.3V lines of the sensors), WAGO clamps must be used. To prevent loose contacts during vibrations, the correct seating in the clamps must be verified.
 
-### 4.3 Mechanische Integration
-* **Zentraleinheit:** Die Befestigung des ESP32-Gehäuses im Chassis erfolgt über verschraubte Trägerplatten oder Klettband.
-* **GPS:** Das GPS-Modul muss horizontal montiert werden. Die Keramik-Antenne muss ungehindert nach oben zeigen.
-* **Drehzahlmessung:** Der Neodym-Magnet ist adhäsiv (z.B. Sekundenkleber oder Epoxidharz) auf der Kardanwelle zu fixieren. Ein entsprechendes Gegengewicht auf der gegenüberliegenden Seite der Welle verhindert Unwuchten bei hohen Rotationsgeschwindigkeiten. Der Hall-Sensor ist mit einem Spaltmaß von maximal 2 mm über dem Magneten starr zu positionieren.
-* **Temperaturen:** Die DS18B20-Sensoren sind mit Wärmeleitkleber an ESC und Motorgehäuse anzubringen.
+### 4.3 Mechanical Integration
+* **Central Unit:** The ESP32 enclosure is mounted in the chassis using screwed carrier plates or velcro tape.
+* **GPS:** The GPS module must be mounted horizontally. The ceramic antenna must point upwards unobstructed.
+* **RPM Measurement:** The neodymium magnet must be fixed adhesively (e.g., superglue or epoxy resin) to the driveshaft. A corresponding counterweight on the opposite side of the shaft prevents imbalances at high rotational speeds. The Hall sensor must be positioned rigidly with a maximum gap of 2 mm above the magnet.
+* **Temperatures:** The DS18B20 sensors must be attached to the ESC and motor casing with thermal adhesive.
 
-## 5. Betriebsmodus und Datenauswertung
-* **Boot-Sequenz:** Das System startet autonom beim Einschalten des RC-Fahrzeugs. Nach erfolgreicher Initialisierung des SPI-Busses beginnt der Schreibvorgang.
-* **Logging-Zyklus:** Die Sensordaten werden mit einer Frequenz von 2 Hz auf die MicroSD-Karte geschrieben. Die Limitierung auf 2 Hz verhindert Schreib-Puffer-Überläufe (Buffer Overruns) der SD-Karte.
-* **Datenformat:** Die Ausgabe erfolgt als standardisierte CSV- oder JSON-Datei auf einer FAT32-formatierten Partition.
-* **Post-Processing:** Nach Abschluss der Fahrt ist die MicroSD-Karte manuell zu entnehmen. Die Rohdaten können in Tabellenkalkulationsprogrammen oder Analyse-Skripten visualisiert und evaluiert werden.
+## 5. Operation Mode and Data Analysis
+* **Boot Sequence:** The system starts autonomously when the RC vehicle is turned on. After successful initialization of the SPI bus, the writing process begins.
+* **Logging Cycle:** Sensor data is written to the MicroSD card at a frequency of 2 Hz. The 2 Hz limitation prevents write buffer overruns of the SD card.
+* **Data Format:** The output is a standardized CSV or JSON file on a FAT32-formatted partition.
+* **Post-Processing:** After completing the run, the MicroSD card must be removed manually. The raw data can be visualized and evaluated in spreadsheet programs or analysis scripts.
 
-## 6. CI/CD: Reddit-Feedback-Synchronisation
-Eine konfigurierte GitHub Action dient der Extraktion von externem Projektfeedback aus dem verlinkten Reddit-Thread.
+## 6. CI/CD: Reddit Feedback Synchronization
+A configured GitHub Action is used to extract external project feedback from the linked Reddit thread.
 
-### Architektur
-* **Python-Skript (`scripts/fetch_reddit.py`):** Verantwortlich für den Abruf des Reddit-RSS-Feeds und die HTML-Bereinigung der Kommentare.
-* **Automatisierung (`.github/workflows/reddit-sync.yml`):** Der Cronjob triggert die Pipeline arbeitstäglich um 08:00 UTC.
-* **Output-Handling:** Neu erfasste Kommentare werden in die Datei `reddit/reddit_feedback.md` geschrieben und durch die Action automatisch im `main`-Branch committet.
+### Architecture
+* **Python Script (`scripts/fetch_reddit.py`):** Responsible for fetching the Reddit RSS feed and cleaning the HTML comments.
+* **Automation (`.github/workflows/reddit-sync.yml`):** The cronjob triggers the pipeline every working day at 08:00 UTC.
+* **Output Handling:** Newly captured comments are written to the file `reddit/reddit_feedback.md` and automatically committed to the `main` branch by the action.
 
-### Manueller Sync
-Zur sofortigen Datensynchronisation:
-* Im GitHub-Repository den Tab "Actions" öffnen.
-* Den Workflow "Fetch Reddit Feedback" selektieren.
-* "Run workflow" ausführen. Die Markdown-Datei wird daraufhin aktualisiert.
+### Manual Sync
+For immediate data synchronization:
+* Open the "Actions" tab in the GitHub repository.
+* Select the "Fetch Reddit Feedback" workflow.
+* Execute "Run workflow". The Markdown file will then be updated.

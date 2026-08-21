@@ -3,52 +3,48 @@ from bs4 import BeautifulSoup
 import os
 from datetime import datetime
 
-POST_ID = '1s9dydh'
-# Die URL mit .rss am Ende
-RSS_URL = f'https://www.reddit.com/r/esp32/comments/{POST_ID}/.rss'
+# RSS Feed URL of the specific Reddit thread
+RSS_URL = 'https://www.reddit.com/r/rccars/comments/xyz123/my_custom_telemetry_system/.rss'
 
-# Einen eigenen User-Agent setzen, damit Reddit uns nicht blockiert
-USER_AGENT = 'GitHubAction:carten-telemetry-rss-sync:v1.0'
+# Parse Feed
+feed = feedparser.parse(RSS_URL)
 
-print(f"Lese RSS Feed: {RSS_URL}")
-feed = feedparser.parse(RSS_URL, agent=USER_AGENT)
-
-if feed.bozo: # bozo = 1 bedeutet, dass es einen Fehler beim Parsen gab (z.B. Blockade)
-    print("Fehler beim Abrufen des Feeds!")
+if feed.bozo:
+    print("Error fetching the feed!")
     exit(1)
 
-# Markdown Header zusammenbauen
+# Assemble Markdown Header
 md_content = "# Reddit Feedback: Live Telemetry System (RSS Sync)\n\n"
-md_content += f"**Letzter Sync:** {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}\n\n"
+md_content += f"**Last Sync:** {datetime.now().strftime('%d.%m.%Y %H:%M:%S')}\n\n"
 md_content += "---\n\n"
 
-# Durch die Einträge iterieren. Der erste Eintrag ist oft der Post selbst, danach die Kommentare.
+# Iterate through entries. The first entry is often the post itself, followed by comments.
 for entry in feed.entries:
-    # Autor auslesen (Reddit formatiert das als /u/username)
-    author = entry.get('author', '[Unbekannt]').replace('/u/', '')
+    # Read author (Reddit formats this as /u/username)
+    author = entry.get('author', '[Unknown]').replace('/u/', '')
     link = entry.get('link', '')
     
-    # Der eigentliche Text steckt als HTML in der "summary"
+    # The actual text is inside "summary" as HTML
     raw_html = entry.get('summary', '')
     
-    # BeautifulSoup nutzen, um HTML-Tags (wie <p>, <a>) zu entfernen
+    # Use BeautifulSoup to remove HTML tags (like <p>, <a>)
     soup = BeautifulSoup(raw_html, 'html.parser')
     
-    # Text extrahieren und Zeilenumbrüche beibehalten
+    # Extract text and keep line breaks
     text = soup.get_text(separator='\n').strip()
     
-    # Markdown Blockquote Formatierung hinzufügen (> )
+    # Add Markdown Blockquote formatting (> )
     text_formatted = text.replace('\n', '\n> ')
     
-    md_content += f"**u/{author}** [schrieb]({link}):\n"
+    md_content += f"**u/{author}** [wrote]({link}):\n"
     md_content += f"> {text_formatted}\n\n"
     md_content += "---\n\n"
 
-# Zielordner erstellen und speichern
+# Create target folder and save
 os.makedirs('reddit', exist_ok=True)
 file_path = 'reddit/reddit_feedback.md'
 
 with open(file_path, 'w', encoding='utf-8') as f:
     f.write(md_content)
     
-print(f"Erfolgreich {len(feed.entries)} Einträge in {file_path} gespeichert!")
+print(f"Successfully saved {len(feed.entries)} entries to {file_path}!")

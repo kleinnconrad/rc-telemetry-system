@@ -6,25 +6,25 @@ const int SD_CS_PIN = 5;
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("Initialisiere SD-Karte...");
+  Serial.println("Initializing SD card...");
 
   if (!SD.begin(SD_CS_PIN)) {
-    Serial.println("Fehler: SD-Karte nicht gefunden oder falsch verkabelt!");
+    Serial.println("Error: SD card not found or wired incorrectly!");
     return;
   }
-  Serial.println("SD-Karte gefunden.");
+  Serial.println("SD card found.");
 
-  // Test-Datei erstellen und schreiben
+  // Create and write test file
   File dataFile = SD.open("/test.txt", FILE_WRITE);
   if (dataFile) {
-    dataFile.println("Hallo vom ESP32! Die Karte funktioniert.");
+    dataFile.println("Hello from the ESP32! The card is working.");
     dataFile.close();
-    Serial.println("Erfolgreich in test.txt geschrieben.");
+    Serial.println("Successfully written to test.txt.");
   } else {
-    Serial.println("Fehler beim Oeffnen der Datei.");
+    Serial.println("Error opening the file.");
   }
 }
 
 void loop() {
-  // Hier passiert nichts weiter
+  // Nothing else happens here
 }

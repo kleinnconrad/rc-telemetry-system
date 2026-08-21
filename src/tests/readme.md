@@ -1,29 +1,29 @@
-# Testverfahren und Verifikation
+# Test Procedures and Verification
 
-## Inhaltsverzeichnis
-* [1. Methodik und Akzeptanzkriterien](#1-methodik-und-akzeptanzkriterien)
-* [2. Allgemeine Vorbereitung](#2-allgemeine-vorbereitung)
-* [3. Phase 1: Systemstart](#3-phase-1-systemstart)
-* [4. Phase 2A: Temperatursensor](#4-phase-2a-temperatursensor)
-* [5. Phase 2B: Hall-Sensor](#5-phase-2b-hall-sensor)
-* [6. Phase 3: MicroSD-Karte](#6-phase-3-microsd-karte)
-* [7. Phase 4: GPS-Modul](#7-phase-4-gps-modul)
+## Table of Contents
+* [1. Methodology and Acceptance Criteria](#1-methodology-and-acceptance-criteria)
+* [2. General Preparation](#2-general-preparation)
+* [3. Phase 1: System Boot](#3-phase-1-system-boot)
+* [4. Phase 2A: Temperature Sensor](#4-phase-2a-temperature-sensor)
+* [5. Phase 2B: Hall Sensor](#5-phase-2b-hall-sensor)
+* [6. Phase 3: MicroSD Card](#6-phase-3-microsd-card)
+* [7. Phase 4: GPS Module](#7-phase-4-gps-module)
 
-## 1. Methodik und Akzeptanzkriterien
-Die nachfolgenden Testroutinen dienen der isolierten Hardware-Verifikation (Unit-Tests der Peripherie). Jede Komponente muss zwingend einzeln geprüft werden, bevor die vollständige Firmware aufgespielt wird.
-Ein Test gilt als bestanden, wenn die Ausgabe im Seriellen Monitor präzise den definierten Erwartungswerten entspricht und keine Hardware-Timeouts gemeldet werden.
+## 1. Methodology and Acceptance Criteria
+The following test routines serve for isolated hardware verification (peripheral unit tests). Each component must strictly be tested individually before flashing the complete firmware.
+A test is considered passed if the output in the Serial Monitor precisely matches the defined expected values and no hardware timeouts are reported.
 
-## 2. Allgemeine Vorbereitung
-1. Den ESP32 über ein Daten-USB-Kabel (zwingend mit intakten D+/D- Leitungen) mit dem PC verbinden.
-2. Die Arduino IDE öffnen und den jeweiligen Testcode in den Editor einfügen.
-3. Im Menü `Werkzeuge` -> `Board`: Die Vorgabe `ESP32 Dev Module` auswählen.
-4. Im Menü `Werkzeuge` -> `Port`: Die Zuweisung des erkannten COM-Ports (Windows) bzw. `/dev/ttyUSB*` (Linux/macOS) vornehmen.
-5. Die Upload-Schaltfläche betätigen. Falls der Verbindungsaufbau stagniert, den `BOOT`-Taster am ESP32 für zwei Sekunden gedrückt halten.
-6. Den Seriellen Monitor öffnen und die Baudrate exakt auf `115200` einstellen.
+## 2. General Preparation
+1. Connect the ESP32 to the PC via a data USB cable (strictly with intact D+/D- lines).
+2. Open the Arduino IDE and paste the respective test code into the editor.
+3. In menu `Tools` -> `Board`: Select `ESP32 Dev Module`.
+4. In menu `Tools` -> `Port`: Assign the recognized COM port (Windows) or `/dev/ttyUSB*` (Linux/macOS).
+5. Press the Upload button. If the connection stalls, hold the `BOOT` button on the ESP32 for two seconds.
+6. Open the Serial Monitor and set the baud rate exactly to `115200`.
 
-## 3. Phase 1: Systemstart
-**Ziel:** Prüfung der ESP32-Grundfunktion, des seriellen Interfaces und des Flash-Vorgangs.
-**Akzeptanzkriterium:** Der serielle Monitor gibt abwechselnd im Sekunden-Takt "LED AN" und "LED AUS" aus. Die Onboard-LED blinkt synchron.
+## 3. Phase 1: System Boot
+**Goal:** Testing the basic ESP32 functionality, serial interface, and flash process.
+**Acceptance Criterion:** The serial monitor alternately outputs "LED ON" and "LED OFF" every second. The onboard LED blinks synchronously.
 
 ```cpp
 #include <Arduino.h>
@@ -33,23 +33,23 @@ const int LED_PIN = 2;
 void setup() {
   Serial.begin(115200);
   pinMode(LED_PIN, OUTPUT);
-  Serial.println("Systemstart");
+  Serial.println("System Boot");
 }
 
 void loop() {
   digitalWrite(LED_PIN, HIGH);
-  Serial.println("LED AN");
+  Serial.println("LED ON");
   delay(1000);
   
   digitalWrite(LED_PIN, LOW);
-  Serial.println("LED AUS");
+  Serial.println("LED OFF");
   delay(1000);
 }
 ```
 
-## 4. Phase 2A: Temperatursensor
-**Ziel:** Verifikation der 1-Wire-Kommunikation. Anschluss des DS18B20-Sensors an Pin 4.
-**Akzeptanzkriterium:** Die gemessene Temperatur wird in Celsius ausgegeben. Ein Auslesen des Werts `-127.00 C` indiziert einen Verbindungsabbruch oder Verdrahtungsfehler.
+## 4. Phase 2A: Temperature Sensor
+**Goal:** Verification of 1-Wire communication. DS18B20 sensor connected to Pin 4.
+**Acceptance Criterion:** Measured temperature is output in Celsius. Reading a value of `-127.00 C` indicates a connection drop or wiring error.
 
 ```cpp
 #include <Arduino.h>
@@ -63,14 +63,14 @@ DallasTemperature sensors(&oneWire);
 void setup() {
   Serial.begin(115200);
   sensors.begin();
-  Serial.println("Temperatur-Test");
+  Serial.println("Temperature Test");
 }
 
 void loop() {
   sensors.requestTemperatures(); 
   float temp = sensors.getTempCByIndex(0);
   
-  Serial.print("Temperatur: ");
+  Serial.print("Temperature: ");
   Serial.print(temp);
   Serial.println(" C");
   
@@ -78,40 +78,40 @@ void loop() {
 }
 ```
 
-## 5. Phase 2B: Hall-Sensor
-**Ziel:** Funktionsprüfung des Hardware-Interrupts am A3144 Hall-Sensor (Pin 2).
-**Akzeptanzkriterium:** Bei manueller Annäherung des Neodym-Magneten an den Sensor wird exakt ein Impuls auf dem Seriellen Monitor registriert. Mehrfachauslösungen weisen auf Prellen hin (Bouncing).
+## 5. Phase 2B: Hall Sensor
+**Goal:** Functional check of the hardware interrupt on the A3144 Hall sensor (Pin 2).
+**Acceptance Criterion:** Manual approach of the neodymium magnet to the sensor registers exactly one pulse on the Serial Monitor. Multiple triggers indicate bouncing.
 
 ```cpp
 #include <Arduino.h>
 
 const int HALL_PIN = 2;
-volatile int magnetErkannt = 0;
+volatile int magnetDetected = 0;
 
 void IRAM_ATTR countPulse() {
-  magnetErkannt++;
+  magnetDetected++;
 }
 
 void setup() {
   Serial.begin(115200);
   pinMode(HALL_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(HALL_PIN), countPulse, FALLING);
-  Serial.println("Bereit");
+  Serial.println("Ready");
 }
 
 void loop() {
-  if (magnetErkannt > 0) {
-    Serial.print("Impulse: ");
-    Serial.println(magnetErkannt);
-    magnetErkannt = 0;
+  if (magnetDetected > 0) {
+    Serial.print("Pulses: ");
+    Serial.println(magnetDetected);
+    magnetDetected = 0;
   }
   delay(100);
 }
 ```
 
-## 6. Phase 3: MicroSD-Karte
-**Ziel:** Verifikation des SPI-Busses und der Lese-/Schreibzyklen. Das Modul muss zwingend über 3.3V versorgt werden.
-**Akzeptanzkriterium:** Ausgabe der Bestätigung "Schreibvorgang abgeschlossen". Die SD-Karte (FAT32) enthält anschließend eine Datei `test.txt` mit dem Text "SD-Test erfolgreich".
+## 6. Phase 3: MicroSD Card
+**Goal:** Verification of the SPI bus and read/write cycles. The module must strictly be powered via 3.3V.
+**Acceptance Criterion:** Output confirmation "Write process completed". The SD card (FAT32) subsequently contains a file `test.txt` with the text "SD test successful".
 
 ```cpp
 #include <Arduino.h>
@@ -124,26 +124,26 @@ void setup() {
   Serial.begin(115200);
   
   if (!SD.begin(SD_CS_PIN)) {
-    Serial.println("Fehler bei SD-Initialisierung");
+    Serial.println("Error during SD initialization");
     return;
   }
   
   File dataFile = SD.open("/test.txt", FILE_WRITE);
   if (dataFile) {
-    dataFile.println("SD-Test erfolgreich");
+    dataFile.println("SD test successful");
     dataFile.close();
-    Serial.println("Schreibvorgang abgeschlossen");
+    Serial.println("Write process completed");
   } else {
-    Serial.println("Fehler beim Dateizugriff");
+    Serial.println("File access error");
   }
 }
 
 void loop() {}
 ```
 
-## 7. Phase 4: GPS-Modul
-**Ziel:** Evaluierung des Hardware-UART-Empfangs von NMEA-Datensätzen des BN-220 Moduls (RX an Pin 16, TX an Pin 17).
-**Akzeptanzkriterium:** Der Monitor zeigt rohe NMEA-Sätze (z.B. `$GPRMC...`) an. Diese müssen unter freiem Himmel valide Koordinaten enthalten, andernfalls verbleiben die Datenfelder leer.
+## 7. Phase 4: GPS Module
+**Goal:** Evaluation of hardware UART reception of NMEA datasets from the BN-220 module (RX to Pin 16, TX to Pin 17).
+**Acceptance Criterion:** The monitor displays raw NMEA sentences (e.g., `$GPRMC...`). These must contain valid coordinates under an open sky, otherwise data fields remain empty.
 
 ```cpp
 #include <Arduino.h>

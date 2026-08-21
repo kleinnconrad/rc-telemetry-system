@@ -1,25 +1,24 @@
-# Testprotokoll: In-Vehicle Integration
+# Test Protocol: In-Vehicle Integration
 
-## Inhaltsverzeichnis
-* [1. Testaufbau und Spezifikationen](#1-testaufbau-und-spezifikationen)
-* [2. Prüfverfahren und Methodik](#2-prüfverfahren-und-methodik)
-* [3. Testergebnisse und Validierung](#3-testergebnisse-und-validierung)
-* [4. Visuelle Dokumentation](#4-visuelle-dokumentation)
+## Table of Contents
+* [1. Test Setup and Specifications](#1-test-setup-and-specifications)
+* [2. Test Procedure and Methodology](#2-test-procedure-and-methodology)
+* [3. Test Results and Validation](#3-test-results-and-validation)
 
-## 1. Testaufbau und Spezifikationen
-Der Integrationstest der Telemetrie-Einheit wurde im montierten Zustand im Fahrzeug-Chassis vollzogen.
-* **Stromversorgung:** Die Energieversorgung des ESP32 erfolgte ausschließlich parasitär über den BEC-Port (Battery Eliminator Circuit) des RC-Empfängers bei einer nominalen Spannung von 5.0 V.
-* **Datenspeicher:** Eine 16 GB SDHC-Karte (FAT32, Clustergröße 32 KB) wurde für das Logging verwendet.
-* **Umgebung:** Das Fahrzeug wurde stationär unter freiem Himmel positioniert, um eine ungestörte Line-of-Sight für den Fix der Satelliten des GPS-Moduls zu garantieren.
-* **Testdauer:** Der Testlauf dauerte exakt 180 Sekunden.
+## 1. Test Setup and Specifications
+The integration test of the telemetry unit was performed mounted within the vehicle chassis.
+* **Power Supply:** The ESP32 was powered exclusively parasitically via the BEC port (Battery Eliminator Circuit) of the RC receiver at a nominal voltage of 5.0 V.
+* **Data Storage:** A 16 GB SDHC card (FAT32, cluster size 32 KB) was used for logging.
+* **Environment:** The vehicle was positioned stationary under an open sky to guarantee an unobstructed line-of-sight for the satellite fix of the GPS module.
+* **Test Duration:** The test run lasted exactly 180 seconds.
 
-## 2. Prüfverfahren und Methodik
-Der Test fokussierte sich auf die Verifikation von Systemstabilität und Datenintegrität unter realen mechanischen Integrationsbedingungen.
-* Es wurde kontrolliert, ob der Einschaltstrom (Inrush Current) des ESP32 zu einem Reset oder einem Spannungsabfall ("Brownout") des Empfängers führt.
-* Der Datendurchsatz auf dem SPI-Bus zum SD-Modul wurde im 2 Hz-Takt überwacht.
-* Es wurde eine Störfestigkeitsprüfung bezüglich elektromagnetischer Interferenzen (EMI) zwischen dem Fahrtregler (ESC) und dem GPS-Modul durchgeführt.
+## 2. Test Procedure and Methodology
+The test focused on verifying system stability and data integrity under real mechanical integration conditions.
+* It was verified whether the inrush current of the ESP32 causes a reset or voltage drop ("Brownout") of the receiver.
+* Data throughput on the SPI bus to the SD module was monitored at a 2 Hz interval.
+* An immunity test regarding electromagnetic interference (EMI) between the electronic speed controller (ESC) and the GPS module was conducted.
 
-## 3. Testergebnisse und Validierung
-* **Stromversorgung:** Der Test war erfolgreich. Das BEC des Empfängers lieferte ausreichend Strom (Spitzen bis 250 mA) für den Bootvorgang. Brownout-Erkennungen des ESP32 blieben aus.
-* **Datenaufzeichnung:** Das Logging auf die MicroSD-Karte verlief vollständig fehlerfrei. Es wurden keine verlorenen Schreibzyklen (Dropped Frames) verzeichnet.
-* **Sensordaten:** Die in der Datei `log.csv` erfassten Parameter (Temperaturwerte in °C, GPS-Koordinaten) wurden einer Plausibilitätsprüfung unterzogen. Die Temperaturwerte lagen stabil im Umgebungsspektrum (ca. 22 °C), und der GPS-Fix erreichte eine akzeptable HDOP (Horizontal Dilution of Precision).
+## 3. Test Results and Validation
+* **Power Supply:** The test was successful. The receiver's BEC delivered sufficient current (peaks up to 250 mA) for the boot process. Brownout detections by the ESP32 did not occur.
+* **Data Recording:** Logging to the MicroSD card proceeded entirely error-free. No dropped frames were recorded.
+* **Sensor Data:** Parameters recorded in `log.csv` (temperature values in °C, GPS coordinates) underwent a plausibility check. Temperature values were stable within ambient range (approx. 22 °C), and the GPS fix achieved an acceptable HDOP (Horizontal Dilution of Precision).
