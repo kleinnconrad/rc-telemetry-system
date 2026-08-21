@@ -1,4 +1,4 @@
-# Carten Telemetry
+# Carten T410R Telemetry
 
 ## Table of Contents
 * [1. Project Description and Specifications](#1-project-description-and-specifications)
