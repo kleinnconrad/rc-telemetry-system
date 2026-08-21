@@ -18,7 +18,7 @@ Dieses System erfasst Telemetriedaten (Geschwindigkeit, Drehzahl, Temperaturen) 
 
 ## 2. Schaltplan
 
-![Schaltplan Offline](Schaltplan_Offline_30Pin.png)
+![Schaltplan Offline](Schaltplan_Graphical.svg)
 
 ## 3. Pin-Mapping
 Alle Komponenten benötigen eine gemeinsame Masse (GND). Serielle Verbindungen erfordern gekreuzte Leitungen (TX an RX, RX an TX).

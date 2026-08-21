@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" style="background-color: #f0f2f5; font-family: 'Segoe UI', Arial, sans-serif;">
+<defs>
+<pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+</pattern>
+<filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+<feDropShadow dx="3" dy="3" stdDeviation="4" flood-opacity="0.3"/>
+</filter>
+</defs>
+<rect width="100%" height="100%" fill="url(#grid)" />
+<rect x="510" y="270" width="180" height="360" rx="10" fill="#2d2d2d" filter="url(#shadow)"/>
+<rect x="555" y="290" width="90" height="110" rx="4" fill="#555" stroke="#777" stroke-width="2"/>
+<text x="600" y="350" fill="#ddd" font-size="10" text-anchor="middle" font-family="monospace">ESP-WROOM-32</text>
+<text x="600" y="370" fill="#aaa" font-size="8" text-anchor="middle">FREENOVE 30-PIN</text>
+<rect x="580" y="620" width="40" height="15" rx="2" fill="#c0c0c0"/>
+<rect x="515" y="305" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="310" r="2" fill="#222"/>
+<text x="535" y="314" fill="white" font-size="12" text-anchor="start">EN</text>
+<rect x="515" y="325" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="330" r="2" fill="#222"/>
+<text x="535" y="334" fill="white" font-size="12" text-anchor="start">VP</text>
+<rect x="515" y="345" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="350" r="2" fill="#222"/>
+<text x="535" y="354" fill="white" font-size="12" text-anchor="start">VN</text>
+<rect x="515" y="365" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="370" r="2" fill="#222"/>
+<text x="535" y="374" fill="white" font-size="12" text-anchor="start">D34</text>
+<rect x="515" y="385" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="390" r="2" fill="#222"/>
+<text x="535" y="394" fill="white" font-size="12" text-anchor="start">D35</text>
+<rect x="515" y="405" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="410" r="2" fill="#222"/>
+<text x="535" y="414" fill="white" font-size="12" text-anchor="start">D32</text>
+<rect x="515" y="425" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="430" r="2" fill="#222"/>
+<text x="535" y="434" fill="white" font-size="12" text-anchor="start">D33</text>
+<rect x="515" y="445" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="450" r="2" fill="#222"/>
+<text x="535" y="454" fill="white" font-size="12" text-anchor="start">D25</text>
+<rect x="515" y="465" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="470" r="2" fill="#222"/>
+<text x="535" y="474" fill="white" font-size="12" text-anchor="start">D26</text>
+<rect x="515" y="485" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="490" r="2" fill="#222"/>
+<text x="535" y="494" fill="white" font-size="12" text-anchor="start">D27</text>
+<rect x="515" y="505" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="510" r="2" fill="#222"/>
+<text x="535" y="514" fill="white" font-size="12" text-anchor="start">D14</text>
+<rect x="515" y="525" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="530" r="2" fill="#222"/>
+<text x="535" y="534" fill="white" font-size="12" text-anchor="start">D12</text>
+<rect x="515" y="545" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="550" r="2" fill="#222"/>
+<text x="535" y="554" fill="white" font-size="12" text-anchor="start">D13</text>
+<rect x="515" y="565" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="570" r="2" fill="#222"/>
+<text x="535" y="574" fill="white" font-size="12" text-anchor="start">GND</text>
+<rect x="515" y="585" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="520" cy="590" r="2" fill="#222"/>
+<text x="535" y="594" fill="white" font-size="12" text-anchor="start">VIN</text>
+<rect x="675" y="305" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="310" r="2" fill="#222"/>
+<text x="665" y="314" fill="white" font-size="12" text-anchor="end">D23</text>
+<rect x="675" y="325" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="330" r="2" fill="#222"/>
+<text x="665" y="334" fill="white" font-size="12" text-anchor="end">D22</text>
+<rect x="675" y="345" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="350" r="2" fill="#222"/>
+<text x="665" y="354" fill="white" font-size="12" text-anchor="end">TX0</text>
+<rect x="675" y="365" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="370" r="2" fill="#222"/>
+<text x="665" y="374" fill="white" font-size="12" text-anchor="end">RX0</text>
+<rect x="675" y="385" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="390" r="2" fill="#222"/>
+<text x="665" y="394" fill="white" font-size="12" text-anchor="end">D21</text>
+<rect x="675" y="405" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="410" r="2" fill="#222"/>
+<text x="665" y="414" fill="white" font-size="12" text-anchor="end">D19</text>
+<rect x="675" y="425" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="430" r="2" fill="#222"/>
+<text x="665" y="434" fill="white" font-size="12" text-anchor="end">D18</text>
+<rect x="675" y="445" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="450" r="2" fill="#222"/>
+<text x="665" y="454" fill="white" font-size="12" text-anchor="end">D5</text>
+<rect x="675" y="465" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="470" r="2" fill="#222"/>
+<text x="665" y="474" fill="white" font-size="12" text-anchor="end">TX2</text>
+<rect x="675" y="485" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="490" r="2" fill="#222"/>
+<text x="665" y="494" fill="white" font-size="12" text-anchor="end">RX2</text>
+<rect x="675" y="505" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="510" r="2" fill="#222"/>
+<text x="665" y="514" fill="white" font-size="12" text-anchor="end">D4</text>
+<rect x="675" y="525" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="530" r="2" fill="#222"/>
+<text x="665" y="534" fill="white" font-size="12" text-anchor="end">D2</text>
+<rect x="675" y="545" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="550" r="2" fill="#222"/>
+<text x="665" y="554" fill="white" font-size="12" text-anchor="end">D15</text>
+<rect x="675" y="565" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="570" r="2" fill="#222"/>
+<text x="665" y="574" fill="white" font-size="12" text-anchor="end">GND</text>
+<rect x="675" y="585" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="680" cy="590" r="2" fill="#222"/>
+<text x="665" y="594" fill="white" font-size="12" text-anchor="end">3V3</text>
+<rect x="850" y="150" width="180" height="40" rx="5" fill="#f0f0f0" stroke="#bbb" stroke-width="2" filter="url(#shadow)"/>
+<rect x="850" y="150" width="180" height="15" rx="5" fill="#ff7f00"/>
+<text x="940.0" y="161" fill="white" font-size="10" text-anchor="middle" font-weight="bold">WAGO 3.3V</text>
+<rect x="864" y="169" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="870" cy="177" r="3" fill="#333"/>
+<rect x="884" y="169" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="890" cy="177" r="3" fill="#333"/>
+<rect x="904" y="169" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="910" cy="177" r="3" fill="#333"/>
+<rect x="924" y="169" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="930" cy="177" r="3" fill="#333"/>
+<rect x="944" y="169" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="950" cy="177" r="3" fill="#333"/>
+<rect x="964" y="169" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="970" cy="177" r="3" fill="#333"/>
+<rect x="984" y="169" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="990" cy="177" r="3" fill="#333"/>
+<rect x="1004" y="169" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="1010" cy="177" r="3" fill="#333"/>
+<rect x="850" y="250" width="180" height="40" rx="5" fill="#f0f0f0" stroke="#bbb" stroke-width="2" filter="url(#shadow)"/>
+<rect x="850" y="250" width="180" height="15" rx="5" fill="#ff7f00"/>
+<text x="940.0" y="261" fill="white" font-size="10" text-anchor="middle" font-weight="bold">WAGO GND</text>
+<rect x="864" y="269" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="870" cy="277" r="3" fill="#333"/>
+<rect x="884" y="269" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="890" cy="277" r="3" fill="#333"/>
+<rect x="904" y="269" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="910" cy="277" r="3" fill="#333"/>
+<rect x="924" y="269" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="930" cy="277" r="3" fill="#333"/>
+<rect x="944" y="269" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="950" cy="277" r="3" fill="#333"/>
+<rect x="964" y="269" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="970" cy="277" r="3" fill="#333"/>
+<rect x="984" y="269" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="990" cy="277" r="3" fill="#333"/>
+<rect x="1004" y="269" width="12" height="15" rx="2" fill="#d0d0d0" stroke="#999"/>
+<circle cx="1010" cy="277" r="3" fill="#333"/>
+<rect x="150" y="400" width="80" height="140" rx="4" fill="#444" stroke="#222" stroke-width="2" filter="url(#shadow)"/>
+<rect x="155" y="405" width="70" height="130" rx="2" fill="#32cd32"/>
+<text x="190.0" y="430" fill="white" font-size="14" text-anchor="middle" font-weight="bold">RC Empf.</text>
+<path d="M 230 410 C 260 380, 280 440, 310 390" fill="none" stroke="#222" stroke-width="2"/>
+<rect x="215" y="475" width="15" height="10" fill="#ffd700" rx="1"/>
+<text x="205" y="484" fill="black" font-size="12" text-anchor="end" font-weight="bold">Signal</text>
+<rect x="215" y="495" width="15" height="10" fill="#ffd700" rx="1"/>
+<text x="205" y="504" fill="black" font-size="12" text-anchor="end" font-weight="bold">5V</text>
+<rect x="215" y="515" width="15" height="10" fill="#ffd700" rx="1"/>
+<text x="205" y="524" fill="black" font-size="12" text-anchor="end" font-weight="bold">GND</text>
+<rect x="1100" y="100" width="120" height="160" rx="6" fill="#4b0082" filter="url(#shadow)"/>
+<text x="1160.0" y="120" fill="white" font-size="14" text-anchor="middle" font-weight="bold">MicroSD</text>
+<rect x="1105" y="125.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="130.0" r="2" fill="#222"/>
+<text x="1125" y="134.0" fill="white" font-size="12" text-anchor="start">CS</text>
+<rect x="1105" y="145.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="150.0" r="2" fill="#222"/>
+<text x="1125" y="154.0" fill="white" font-size="12" text-anchor="start">SCK</text>
+<rect x="1105" y="165.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="170.0" r="2" fill="#222"/>
+<text x="1125" y="174.0" fill="white" font-size="12" text-anchor="start">MISO</text>
+<rect x="1105" y="185.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="190.0" r="2" fill="#222"/>
+<text x="1125" y="194.0" fill="white" font-size="12" text-anchor="start">MOSI</text>
+<rect x="1105" y="205.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="210.0" r="2" fill="#222"/>
+<text x="1125" y="214.0" fill="white" font-size="12" text-anchor="start">VCC</text>
+<rect x="1105" y="225.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="230.0" r="2" fill="#222"/>
+<text x="1125" y="234.0" fill="white" font-size="12" text-anchor="start">GND</text>
+<rect x="1100" y="300" width="120" height="120" rx="6" fill="#1e90ff" filter="url(#shadow)"/>
+<text x="1160.0" y="320" fill="white" font-size="14" text-anchor="middle" font-weight="bold">GPS BN-220</text>
+<rect x="1105" y="325.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="330.0" r="2" fill="#222"/>
+<text x="1125" y="334.0" fill="white" font-size="12" text-anchor="start">GND</text>
+<rect x="1105" y="345.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="350.0" r="2" fill="#222"/>
+<text x="1125" y="354.0" fill="white" font-size="12" text-anchor="start">TX</text>
+<rect x="1105" y="365.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="370.0" r="2" fill="#222"/>
+<text x="1125" y="374.0" fill="white" font-size="12" text-anchor="start">RX</text>
+<rect x="1105" y="385.0" width="10" height="10" fill="#ffd700" rx="2"/>
+<circle cx="1110" cy="390.0" r="2" fill="#222"/>
+<text x="1125" y="394.0" fill="white" font-size="12" text-anchor="start">VCC</text>
+<rect x="1160" y="330" width="50" height="50" rx="2" fill="white" stroke="#ccc"/>
+<circle cx="1200" cy="340" r="3" fill="#8b4513"/>
+<rect x="1145" y="485" width="30" height="25" rx="5" fill="#222" filter="url(#shadow)"/>
+<text x="1160" y="505" fill="#ccc" font-size="8" text-anchor="middle">DS18B20 (Motor)</text>
+<line x1="1150" y1="510" x2="1150" y2="530" stroke="#c0c0c0" stroke-width="4"/>
+<line x1="1160" y1="510" x2="1160" y2="530" stroke="#c0c0c0" stroke-width="4"/>
+<line x1="1170" y1="510" x2="1170" y2="530" stroke="#c0c0c0" stroke-width="4"/>
+<rect x="1145" y="635" width="30" height="25" rx="5" fill="#222" filter="url(#shadow)"/>
+<text x="1160" y="655" fill="#ccc" font-size="8" text-anchor="middle">DS18B20 (ESC)</text>
+<line x1="1150" y1="660" x2="1150" y2="680" stroke="#c0c0c0" stroke-width="4"/>
+<line x1="1160" y1="660" x2="1160" y2="680" stroke="#c0c0c0" stroke-width="4"/>
+<line x1="1170" y1="660" x2="1170" y2="680" stroke="#c0c0c0" stroke-width="4"/>
+<rect x="1145" y="785" width="30" height="25" rx="5" fill="#222" filter="url(#shadow)"/>
+<text x="1160" y="805" fill="#ccc" font-size="8" text-anchor="middle">A3144 (Hall)</text>
+<line x1="1150" y1="810" x2="1150" y2="830" stroke="#c0c0c0" stroke-width="4"/>
+<line x1="1160" y1="810" x2="1160" y2="830" stroke="#c0c0c0" stroke-width="4"/>
+<line x1="1170" y1="810" x2="1170" y2="830" stroke="#c0c0c0" stroke-width="4"/>
+<path d="M 230 500 C 317.0 500, 433.0 590, 520 590" fill="none" stroke="red" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 230 520 C 317.0 520, 433.0 570, 520 570" fill="none" stroke="black" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 680 590 C 680 390.0, 870 390.0, 870 190" fill="none" stroke="red" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 680 570 C 680 430.0, 870 430.0, 870 290" fill="none" stroke="black" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 210.0 C 1105 202.0, 890 198.0, 890 190" fill="none" stroke="red" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 230.0 C 1105 254.0, 890 266.0, 890 290" fill="none" stroke="black" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 190.0 C 850.0 190.0, 935.0 310, 680 310" fill="none" stroke="#0000ff" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 170.0 C 850.0 170.0, 935.0 410, 680 410" fill="none" stroke="#00aa00" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 150.0 C 850.0 150.0, 935.0 430, 680 430" fill="none" stroke="#ffaa00" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 130.0 C 850.0 130.0, 935.0 450, 680 450" fill="none" stroke="#ff5500" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 390.0 C 1105 310.0, 910 270.0, 910 190" fill="none" stroke="red" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 330.0 C 1105 314.0, 910 306.0, 910 290" fill="none" stroke="black" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 350.0 C 850.0 350.0, 935.0 490, 680 490" fill="none" stroke="#ff00ff" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1105 370.0 C 850.0 370.0, 935.0 470, 680 470" fill="none" stroke="#aa00ff" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1150 530 C 1150 410.0, 930 410.0, 930 290" fill="none" stroke="black" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1160 530 C 824.0 530, 1016.0 510, 680 510" fill="none" stroke="#00aaaa" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1170 530 C 1170 360.0, 930 360.0, 930 190" fill="none" stroke="red" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1150 680 C 1150 485.0, 950 485.0, 950 290" fill="none" stroke="black" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1160 680 C 824.0 680, 1016.0 510, 680 510" fill="none" stroke="#00aaaa" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1170 680 C 1170 435.0, 950 435.0, 950 190" fill="none" stroke="red" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1150 830 C 1150 510.0, 970 510.0, 970 190" fill="none" stroke="red" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1160 830 C 1160 560.0, 970 560.0, 970 290" fill="none" stroke="black" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+<path d="M 1170 830 C 827.0 830, 1023.0 530, 680 530" fill="none" stroke="#55ff55" stroke-width="4" filter="url(#shadow)" stroke-linecap="round"/>
+</svg>
