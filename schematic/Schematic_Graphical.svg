@@ -7,7 +7,7 @@
 <text x="45" y="68" font-size="22" fill="#263238" text-anchor="start" font-weight="bold">CARTEN T410R TELEMETRY</text>
 <text x="45" y="92" font-size="13" fill="#78909c" text-anchor="start">Wiring schematic · ESP32 sensor node · GPS · microSD · 2× DS18B20 · Hall RPM</text>
 <text x="950" y="66" font-size="11.5" fill="#607d8b" text-anchor="start">All peripherals are powered from the ESP32 3V3 pin via WAGO-221 splice buses.</text>
-<text x="950" y="84" font-size="11.5" fill="#607d8b" text-anchor="start">Both DS18B20 sensors share one 1-Wire bus on D4.</text>
+<text x="950" y="84" font-size="11.5" fill="#607d8b" text-anchor="start">Both DS18B20 probes share the 1-Wire bus on D4; R1 sits on the probe adapter board.</text>
 <text x="950" y="102" font-size="11.5" fill="#607d8b" text-anchor="start">UART lines are crossed: GPS TX → ESP RX2, GPS RX ← ESP TX2.</text>
 <rect x="430" y="240" width="240" height="584" rx="4" fill="#fffbe6" stroke="#8b1a1a" stroke-width="2.5"/>
 <text x="430" y="232" font-size="13" fill="#0b5394" text-anchor="start" font-weight="bold">U1</text>
@@ -79,11 +79,11 @@
 <rect x="120" y="690" width="230" height="140" rx="3" fill="#fffbe6" stroke="#8b1a1a" stroke-width="2"/>
 <text x="120" y="682" font-size="13" fill="#0b5394" text-anchor="start" font-weight="bold">A1</text>
 <text x="235.0" y="712" font-size="15" fill="#263238" text-anchor="middle" font-weight="bold">RC Receiver</text>
-<text x="235.0" y="728" font-size="11" fill="#78909c" text-anchor="middle">powered from ESC / BEC</text>
+<text x="235.0" y="728" font-size="11" fill="#78909c" text-anchor="middle">BEC 6.0 / 7.4 V from the ESC</text>
 <line x1="350" y1="748" x2="370" y2="748" stroke="#546e7a" stroke-width="2"/>
 <text x="342" y="752" font-size="12" fill="#263238" text-anchor="end" font-family="Consolas, 'Courier New', monospace">GND</text>
 <line x1="350" y1="784" x2="370" y2="784" stroke="#546e7a" stroke-width="2"/>
-<text x="342" y="788" font-size="12" fill="#263238" text-anchor="end" font-family="Consolas, 'Courier New', monospace">5 V</text>
+<text x="342" y="788" font-size="12" fill="#263238" text-anchor="end" font-family="Consolas, 'Courier New', monospace">BEC</text>
 <path d="M 300 690 C 310 660, 330 665, 340 638" fill="none" stroke="#607d8b" stroke-width="2"/>
 <circle cx="340" cy="636" r="3" fill="#607d8b"/>
 <rect x="950" y="150" width="250" height="200" rx="3" fill="#fffbe6" stroke="#8b1a1a" stroke-width="2"/>
@@ -104,8 +104,8 @@
 <text x="1192" y="255" font-size="12" fill="#263238" text-anchor="end" font-family="Consolas, 'Courier New', monospace">GND</text>
 <rect x="950" y="400" width="250" height="140" rx="3" fill="#fffbe6" stroke="#8b1a1a" stroke-width="2"/>
 <text x="950" y="392" font-size="13" fill="#0b5394" text-anchor="start" font-weight="bold">U3</text>
-<text x="1075.0" y="422" font-size="15" fill="#263238" text-anchor="middle" font-weight="bold">GPS BN-220</text>
-<text x="1075.0" y="438" font-size="11" fill="#78909c" text-anchor="middle">UART · NMEA</text>
+<text x="1075.0" y="422" font-size="15" fill="#263238" text-anchor="middle" font-weight="bold">GPS NEO-7M</text>
+<text x="1075.0" y="438" font-size="11" fill="#78909c" text-anchor="middle">u-blox · UART · NMEA</text>
 <line x1="930" y1="460" x2="950" y2="460" stroke="#546e7a" stroke-width="2"/>
 <text x="958" y="464" font-size="12" fill="#263238" text-anchor="start" font-family="Consolas, 'Courier New', monospace">TX</text>
 <line x1="930" y1="496" x2="950" y2="496" stroke="#546e7a" stroke-width="2"/>
@@ -114,14 +114,15 @@
 <text x="1192" y="464" font-size="12" fill="#263238" text-anchor="end" font-family="Consolas, 'Courier New', monospace">VCC</text>
 <line x1="1200" y1="496" x2="1220" y2="496" stroke="#546e7a" stroke-width="2"/>
 <text x="1192" y="500" font-size="12" fill="#263238" text-anchor="end" font-family="Consolas, 'Courier New', monospace">GND</text>
-<rect x="1150" y="412" width="26" height="26" rx="2" fill="#eceff1" stroke="#90a4ae"/>
-<circle cx="1171" cy="418" r="2.5" fill="#8d6e63"/>
+<path d="M 1165 400 L 1165 374" fill="none" stroke="#546e7a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 1153 360 L 1177 360 L 1165 374 Z" fill="none" stroke="#546e7a" stroke-width="2" stroke-linejoin="round"/>
+<text x="1183" y="372" font-size="10.5" fill="#78909c" text-anchor="start">ext. antenna (SMA)</text>
 <rect x="950" y="580" width="250" height="100" rx="3" fill="#fffbe6" stroke="#8b1a1a" stroke-width="2"/>
 <text x="950" y="572" font-size="13" fill="#0b5394" text-anchor="start" font-weight="bold">U4</text>
 <text x="1075.0" y="602" font-size="15" fill="#263238" text-anchor="middle" font-weight="bold">DS18B20</text>
 <text x="1075.0" y="618" font-size="11" fill="#78909c" text-anchor="middle">motor temperature · 1-Wire</text>
-<line x1="930" y1="648" x2="950" y2="648" stroke="#546e7a" stroke-width="2"/>
-<text x="958" y="652" font-size="12" fill="#263238" text-anchor="start" font-family="Consolas, 'Courier New', monospace">DQ</text>
+<line x1="930" y1="640" x2="950" y2="640" stroke="#546e7a" stroke-width="2"/>
+<text x="958" y="644" font-size="12" fill="#263238" text-anchor="start" font-family="Consolas, 'Courier New', monospace">DQ</text>
 <line x1="1200" y1="622" x2="1220" y2="622" stroke="#546e7a" stroke-width="2"/>
 <text x="1192" y="626" font-size="12" fill="#263238" text-anchor="end" font-family="Consolas, 'Courier New', monospace">VDD</text>
 <line x1="1200" y1="654" x2="1220" y2="654" stroke="#546e7a" stroke-width="2"/>
@@ -185,9 +186,17 @@
 <path d="M 690 532 L 830 532 L 830 323 L 930 323" fill="none" stroke="#8e24aa" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M 690 568 L 860 568 L 860 496 L 930 496" fill="none" stroke="#d81b60" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M 690 604 L 890 604 L 890 460 L 930 460" fill="none" stroke="#00838f" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 690 640 L 905 640 L 905 778 L 930 778" fill="none" stroke="#6d4c41" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<path d="M 905 648 L 930 648" fill="none" stroke="#6d4c41" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="905" cy="648" r="4" fill="#6d4c41"/>
+<path d="M 690 640 L 930 640" fill="none" stroke="#6d4c41" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 905 640 L 905 778 L 930 778" fill="none" stroke="#6d4c41" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="905" cy="640" r="4" fill="#6d4c41"/>
+<path d="M 905 710 L 876 710" fill="none" stroke="#6d4c41" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="840" y="704" width="36" height="12" fill="#ffffff" stroke="#546e7a" stroke-width="2"/>
+<path d="M 840 710 L 820 710 L 820 692" fill="none" stroke="#c62828" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 810 692 L 830 692" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="820" y="684" font-size="10" fill="#c62828" text-anchor="middle" font-weight="bold">+3.3 V</text>
+<text x="858" y="699" font-size="10.5" fill="#0b5394" text-anchor="middle" font-weight="bold">R1</text>
+<text x="858" y="731" font-size="10" fill="#78909c" text-anchor="middle">4.7 kΩ</text>
+<circle cx="905" cy="710" r="4" fill="#6d4c41"/>
 <path d="M 690 676 L 730 676 L 730 908 L 930 908" fill="none" stroke="#827717" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 <text x="924" y="210" font-size="10" fill="#1565c0" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">D23</text>
 <text x="924" y="246" font-size="10" fill="#2e7d32" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">D19</text>
@@ -195,7 +204,7 @@
 <text x="924" y="318" font-size="10" fill="#8e24aa" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">D5</text>
 <text x="924" y="455" font-size="10" fill="#00838f" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">RX2</text>
 <text x="924" y="491" font-size="10" fill="#d81b60" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">TX2</text>
-<text x="924" y="643" font-size="10" fill="#6d4c41" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">D4</text>
+<text x="924" y="635" font-size="10" fill="#6d4c41" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">D4</text>
 <text x="924" y="773" font-size="10" fill="#6d4c41" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">D4</text>
 <text x="924" y="903" font-size="10" fill="#827717" text-anchor="end" font-weight="bold" font-family="Consolas, 'Courier New', monospace">D2</text>
 <text x="860" y="207" font-size="11" fill="#78909c" text-anchor="middle" font-style="italic">SPI</text>
@@ -207,7 +216,7 @@
 <path d="M 45 1071 L 67 1071" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 <text x="73" y="1075" font-size="11" fill="#263238" text-anchor="start">3.3 V rail</text>
 <path d="M 195 1071 L 217 1071" fill="none" stroke="#e65100" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-<text x="223" y="1075" font-size="11" fill="#263238" text-anchor="start">5 V (BEC)</text>
+<text x="223" y="1075" font-size="11" fill="#263238" text-anchor="start">BEC 6.0 / 7.4 V</text>
 <path d="M 345 1071 L 367 1071" fill="none" stroke="#263238" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 <text x="373" y="1075" font-size="11" fill="#263238" text-anchor="start">GND</text>
 <path d="M 495 1071 L 517 1071" fill="none" stroke="#1565c0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
@@ -231,6 +240,6 @@
 <text x="1035" y="1081" font-size="11.5" fill="#78909c" text-anchor="start">Wiring schematic — ESP32 telemetry node</text>
 <line x1="1015" y1="1092" x2="1475" y2="1092" stroke="#78909c" stroke-width="1"/>
 <text x="1035" y="1111" font-size="10.5" fill="#78909c" text-anchor="start">Date 2026-10-10</text>
-<text x="1210" y="1111" font-size="10.5" fill="#78909c" text-anchor="start">Rev 2.0</text>
+<text x="1210" y="1111" font-size="10.5" fill="#78909c" text-anchor="start">Rev 2.1</text>
 <text x="1330" y="1111" font-size="10.5" fill="#78909c" text-anchor="start">Sheet 1 / 1</text>
 </svg>

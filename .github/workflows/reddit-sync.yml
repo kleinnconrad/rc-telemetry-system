@@ -3,40 +3,40 @@ name: Fetch Reddit Feedback
 on:
   workflow_dispatch:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true 
-
 jobs:
   update-markdown:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: write
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
-          python-version: '3.10'
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: requirements.txt
 
       - name: Install Dependencies
-        # Here we install the required parser libraries
-        run: pip install feedparser beautifulsoup4
+        run: pip install -r requirements.txt
 
       - name: Run Fetch Script
         run: python scripts/fetch_reddit.py
 
+      # The script only rewrites the file when the comments changed
       - name: Commit and Push Changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add reddit/reddit_feedback.md
-          
+
           if git diff --staged --quiet; then
             echo "No new comments. Nothing to commit."
           else
-            git commit -m "docs: Update Reddit feedback via RSS"
+            git commit -m "docs: update Reddit feedback via RSS"
             git push
           fi
