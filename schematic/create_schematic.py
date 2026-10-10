@@ -16,7 +16,7 @@ from pathlib import Path
 
 # ------------------------------------------------------------------ palette
 C_33V   = "#c62828"   # 3.3 V rail
-C_5V    = "#e65100"   # 5 V from the receiver / BEC
+C_BEC   = "#e65100"   # ESC BEC via the receiver (6.0 / 7.4 V)
 C_GND   = "#263238"   # ground
 C_MOSI  = "#1565c0"
 C_MISO  = "#2e7d32"
@@ -130,13 +130,13 @@ def main():
     text(45, 92, "Wiring schematic · ESP32 sensor node · GPS · microSD · 2× DS18B20 · Hall RPM",
          13, MUTED)
     text(950, 66, "All peripherals are powered from the ESP32 3V3 pin via WAGO-221 splice buses.", 11.5, "#607d8b")
-    text(950, 84, "Both DS18B20 sensors share one 1-Wire bus on D4.", 11.5, "#607d8b")
+    text(950, 84, "Both DS18B20 probes share the 1-Wire bus on D4; R1 sits on the probe adapter board.", 11.5, "#607d8b")
     text(950, 102, "UART lines are crossed: GPS TX → ESP RX2, GPS RX ← ESP TX2.", 11.5, "#607d8b")
 
     # --- components -----------------------------------------------------
     esp32()
-    module(120, 690, 230, 140, "A1", "RC Receiver", "powered from ESC / BEC",
-           right=[("GND", 748), ("5 V", 784)])
+    module(120, 690, 230, 140, "A1", "RC Receiver", "BEC 6.0 / 7.4 V from the ESC",
+           right=[("GND", 748), ("BEC", 784)])
     add('<path d="M 300 690 C 310 660, 330 665, 340 638" fill="none" '
         'stroke="#607d8b" stroke-width="2"/>')
     add('<circle cx="340" cy="636" r="3" fill="#607d8b"/>')
@@ -144,14 +144,16 @@ def main():
     module(950, 150, 250, 200, "U2", "MicroSD Module", "SPI card reader",
            left=[("MOSI", 215), ("MISO", 251), ("SCK", 287), ("CS", 323)],
            right=[("VCC", 215), ("GND", 251)])
-    module(950, 400, 250, 140, "U3", "GPS BN-220", "UART · NMEA",
+    module(950, 400, 250, 140, "U3", "GPS NEO-7M", "u-blox · UART · NMEA",
            left=[("TX", 460), ("RX", 496)],
            right=[("VCC", 460), ("GND", 496)])
-    add('<rect x="1150" y="412" width="26" height="26" rx="2" '
-        'fill="#eceff1" stroke="#90a4ae"/>')                 # ceramic antenna
-    add('<circle cx="1171" cy="418" r="2.5" fill="#8d6e63"/>')
+    # external antenna on the SMA connector
+    wire([(1165, 400), (1165, 374)], "#546e7a", 2)
+    add('<path d="M 1153 360 L 1177 360 L 1165 374 Z" fill="none" '
+        'stroke="#546e7a" stroke-width="2" stroke-linejoin="round"/>')
+    text(1183, 372, "ext. antenna (SMA)", 10.5, MUTED)
     module(950, 580, 250, 100, "U4", "DS18B20", "motor temperature · 1-Wire",
-           left=[("DQ", 648)], right=[("VDD", 622), ("GND", 654)])
+           left=[("DQ", 640)], right=[("VDD", 622), ("GND", 654)])
     module(950, 710, 250, 100, "U5", "DS18B20", "ESC temperature · 1-Wire",
            left=[("DQ", 778)], right=[("VDD", 752), ("GND", 784)])
     module(950, 840, 250, 100, "U6", "A3144 Hall", "RPM pulses → PCNT",
@@ -171,7 +173,7 @@ def main():
 
     # --- power wiring ---------------------------------------------------
     wire([(370, 748), (410, 748)], C_GND, 3)                 # RC GND -> ESP GND
-    wire([(370, 784), (410, 784)], C_5V, 3)                  # RC 5V  -> ESP VIN
+    wire([(370, 784), (410, 784)], C_BEC, 3)                 # RC BEC -> ESP VIN
     wire([(690, 784), (700, 784), (700, 970), (1330, 970)], C_33V, 3)   # 3V3 -> rail
     wire([(690, 748), (715, 748), (715, 995), (1390, 995)], C_GND, 3)   # GND -> rail
     for py in (215, 460, 622, 752, 882):                     # VCC taps
@@ -188,16 +190,26 @@ def main():
     wire([(690, 532), (830, 532), (830, 323), (930, 323)], C_CS)     # D5  -> CS
     wire([(690, 568), (860, 568), (860, 496), (930, 496)], C_GPSRX)  # TX2 -> GPS RX
     wire([(690, 604), (890, 604), (890, 460), (930, 460)], C_GPSTX)  # RX2 <- GPS TX
-    wire([(690, 640), (905, 640), (905, 778), (930, 778)], C_1W)     # D4 1-Wire bus
-    wire([(905, 648), (930, 648)], C_1W)                             # tap to U4
-    dot(905, 648, C_1W)
+    wire([(690, 640), (930, 640)], C_1W)                             # D4 1-Wire bus
+    wire([(905, 640), (905, 778), (930, 778)], C_1W)                 # branch to U5
+    dot(905, 640, C_1W)
+    # R1: 1-Wire pull-up to +3.3 V (on the DS18B20 adapter board)
+    wire([(905, 710), (876, 710)], C_1W)
+    add('<rect x="840" y="704" width="36" height="12" fill="#ffffff" '
+        'stroke="#546e7a" stroke-width="2"/>')
+    wire([(840, 710), (820, 710), (820, 692)], C_33V)
+    wire([(810, 692), (830, 692)], C_33V, 3)                         # power port
+    text(820, 684, "+3.3 V", 10, C_33V, anchor="middle", weight="bold")
+    text(858, 699, "R1", 10.5, REF, anchor="middle", weight="bold")
+    text(858, 731, "4.7 kΩ", 10, MUTED, anchor="middle")
+    dot(905, 710, C_1W)
     wire([(690, 676), (730, 676), (730, 908), (930, 908)], C_HALL)   # D2 <- Hall DO
 
     # net labels at the module ends
     for lx, ly, lbl, col in [(924, 210, "D23", C_MOSI), (924, 246, "D19", C_MISO),
                              (924, 282, "D18", C_SCK),  (924, 318, "D5", C_CS),
                              (924, 455, "RX2", C_GPSTX), (924, 491, "TX2", C_GPSRX),
-                             (924, 643, "D4", C_1W),    (924, 773, "D4", C_1W),
+                             (924, 635, "D4", C_1W),    (924, 773, "D4", C_1W),
                              (924, 903, "D2", C_HALL)]:
         text(lx, ly, lbl, 10, col, anchor="end", family=MONO, weight="bold")
 
@@ -211,7 +223,7 @@ def main():
     text(45, 1055, "NET COLORS", 11, INK, weight="bold")
     text(140, 1055, "· a dot marks a junction — crossings without a dot are not connected",
          10, MUTED)
-    legend = [("3.3 V rail", C_33V), ("5 V (BEC)", C_5V), ("GND", C_GND),
+    legend = [("3.3 V rail", C_33V), ("BEC 6.0 / 7.4 V", C_BEC), ("GND", C_GND),
               ("MOSI — D23", C_MOSI), ("MISO — D19", C_MISO), ("SCK — D18", C_SCK),
               ("CS — D5", C_CS), ("GPS TX → RX2", C_GPSTX), ("TX2 → GPS RX", C_GPSRX),
               ("1-Wire — D4", C_1W), ("Hall — D2", C_HALL)]
@@ -227,7 +239,7 @@ def main():
     text(1035, 1081, "Wiring schematic — ESP32 telemetry node", 11.5, MUTED)
     add('<line x1="1015" y1="1092" x2="1475" y2="1092" stroke="#78909c" stroke-width="1"/>')
     text(1035, 1111, "Date 2026-10-10", 10.5, MUTED)
-    text(1210, 1111, "Rev 2.0", 10.5, MUTED)
+    text(1210, 1111, "Rev 2.1", 10.5, MUTED)
     text(1330, 1111, "Sheet 1 / 1", 10.5, MUTED)
 
     add('</svg>')

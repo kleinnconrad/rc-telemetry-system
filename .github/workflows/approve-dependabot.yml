@@ -3,15 +3,16 @@ name: Auto Approve Dependabot PRs
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
-  workflow_dispatch: # Adding this makes it visible in the Actions tab
 
 jobs:
   auto-approve:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       pull-requests: write
-    # Only run this job if the PR author is Dependabot
-    if: github.actor == 'dependabot[bot]'
+    # Check the PR author, not github.actor: the actor is whoever triggered the
+    # event and can be Dependabot on a PR opened by someone else
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
       - name: Auto Approve
         uses: hmarr/auto-approve-action@v4
